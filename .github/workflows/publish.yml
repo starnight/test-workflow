@@ -42,3 +42,7 @@ jobs:
         with:
           name: "publish2.zip"
           path: "publish2.zip"
+
+      - name: Test dispatch event
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        run: echo "Dispatched!!!"
