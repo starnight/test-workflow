@@ -46,3 +46,24 @@ jobs:
       - name: Test dispatch event
         if: ${{ github.event_name == 'workflow_dispatch' }}
         run: echo "Dispatched!!!"
+
+  release:
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    needs: publish
+    runs-on: windows-2019
+
+    steps:
+      - name: Download publish1.zip
+        uses: actions/download-artifact@v3
+        with:
+          name: publish1.zip
+
+      - name: Release files
+        run: |
+          mv publish1.zip release1.zip
+
+      - name: Upload release files
+        uses: actions/upload-artifact@v2
+        with:
+          name: "release1.zip"
+          path: "release1.zip"
