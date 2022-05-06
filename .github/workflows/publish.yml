@@ -9,14 +9,36 @@ jobs:
     runs-on: windows-2019
 
     steps:
-      - name: Upload ZIP build1
-        uses: actions/upload-artifact@v2
+      - name: Download build1.zip
+        uses: actions/download-artifact@v3
         with:
-          name: "build1.zip"
-          path: "build1.zip"
+          name: build1.zip
 
-      - name: Upload ZIP build2
+      - name: Download build2.zip
+        uses: actions/download-artifact@v3
+        with:
+          name: build2.zip
+
+      - name: Publish files
+        run: |
+          mv build1.zip publish1.zip
+          mv build2.zip publish2.zip
+
+      - name: Delete build artifacts
+        uses: geekyeggo/delete-artifact@v1
+        with:
+          name: |
+            build1.zip
+            build2.zip
+
+      - name: Upload ZIP publish1
         uses: actions/upload-artifact@v2
         with:
-          name: "build2.zip"
-          path: "build2.zip"
+          name: "publish1.zip"
+          path: "publish1.zip"
+
+      - name: Upload ZIP publish2
+        uses: actions/upload-artifact@v2
+        with:
+          name: "publish2.zip"
+          path: "publish2.zip"

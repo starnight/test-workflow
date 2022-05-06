@@ -22,6 +22,12 @@ jobs:
         run: Compress-Archive -Path build1\* -DestinationPath build1.zip
         shell: pwsh
 
+      - name: Upload ZIP build1
+        uses: actions/upload-artifact@v2
+        with:
+          name: "build1.zip"
+          path: "build1.zip"
+
   build2:
     runs-on: windows-2019
 
@@ -38,3 +44,9 @@ jobs:
       - name: Compress
         run: Compress-Archive -Path build2\* -DestinationPath build2.zip
         shell: pwsh
+
+      - name: Upload ZIP build2
+        uses: actions/upload-artifact@v2
+        with:
+          name: "build2.zip"
+          path: "build2.zip"
