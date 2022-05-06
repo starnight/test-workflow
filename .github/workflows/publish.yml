@@ -1,0 +1,22 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  publish:
+    runs-on: windows-2019
+
+    steps:
+      - name: Upload ZIP build1
+        uses: actions/upload-artifact@v2
+        with:
+          name: "build1.zip"
+          path: "build1.zip"
+
+      - name: Upload ZIP build2
+        uses: actions/upload-artifact@v2
+        with:
+          name: "build2.zip"
+          path: "build2.zip"

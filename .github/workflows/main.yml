@@ -6,48 +6,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  build1:
-    runs-on: windows-2019
+  build:
+    uses: ./.github/workflows/build.yml
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Create kolibri-windows
-        shell: pwsh
-        run: |
-          mkdir build1
-          cp main.sh build1/
-
-      - name: Compress
-        run: Compress-Archive -Path build1\* -DestinationPath build1.zip
-        shell: pwsh
-
-      - name: Upload ZIP
-        uses: actions/upload-artifact@v2
-        with:
-          name: "build1.zip"
-          path: "build1.zip"
-
-  build2:
-    runs-on: windows-2019
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Create kolibri-windows
-        shell: pwsh
-        run: |
-          mkdir build2
-          cp main.sh build2/
-
-      - name: Compress
-        run: Compress-Archive -Path build2\* -DestinationPath build2.zip
-        shell: pwsh
-
-      - name: Upload ZIP
-        uses: actions/upload-artifact@v2
-        with:
-          name: "build2.zip"
-          path: "build2.zip"
+  publish:
+    needs: build
+    uses: ./.github/workflows/publish.yml
