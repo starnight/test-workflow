@@ -67,3 +67,15 @@ jobs:
         with:
           name: "release1.zip"
           path: "release1.zip"
+
+  sign:
+    runs-on: windows-2019
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Test form PFX
+        run: |
+          ls
+          & openssl pkcs12 -export -out selfsign.pfx -inkey key.pem -in public.cer -passin pass:test -passout pass:test
