@@ -28,6 +28,14 @@ jobs:
           name: "build1.zip"
           path: "build1.zip"
 
+      - name: Have output
+        id: have_output
+        run: echo "::set-output name=test::hello"
+
+      - name: Get output
+        run: |
+          echo ${{ steps.have_output.outputs.test }}
+
   build2:
     runs-on: windows-2019
 
