@@ -4,11 +4,22 @@ on:
   push:
   pull_request:
   workflow_dispatch:
+  schedule:
+    - cron: '1 1 1 1 SAT'
 
 jobs:
   build:
+    if: github.event.schedule == false
     uses: ./.github/workflows/build.yml
 
   publish:
     needs: build
     uses: ./.github/workflows/publish.yml
+
+  weekly_tag:
+    if: github.event.schedule
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Echo
+        run: echo "Run weekly Echo"
