@@ -1,0 +1,24 @@
+name: Tag
+
+on:
+  schedule:
+    - cron: '1,16,31,46 * * * *'
+
+jobs:
+  weekly_tag:
+    if: github.event.schedule
+    runs-on: windows-latest
+
+    steps:
+      - name: Echo
+        run: echo "Run weekly Echo"
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          # Need to fetch everything so that 'git describe' can see the tags
+          fetch-depth: 0
+
+  build:
+    needs: weekly_tag
+    uses: ./.github/workflows/build.yml
