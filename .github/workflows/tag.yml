@@ -2,7 +2,7 @@ name: Tag
 
 on:
   schedule:
-    - cron: '1,16,31,46 * * * *'
+    - cron: '16 1 3 * Mon'
 
 jobs:
   weekly_tag:
