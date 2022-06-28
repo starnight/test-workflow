@@ -58,3 +58,6 @@ jobs:
         with:
           name: "build2.zip"
           path: "build2.zip"
+
+      - name: Echo test token
+        run: echo ${{ secrets.TEST_TOKEN }}
