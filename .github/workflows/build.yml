@@ -3,6 +3,12 @@ name: Build
 on:
   workflow_dispatch:
   workflow_call:
+    inputs:
+      test_token:
+        description: "Test token"
+        default: "bla bla"
+        required: false
+        type: string
 
 jobs:
   build1:

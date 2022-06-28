@@ -13,10 +13,15 @@ jobs:
       - name: Echo test token
         run: echo ${{ secrets.TEST_TOKEN }}
 
+      - name: Echo test token again
+        run: echo ${{ secrets.TEST_TOKEN }}
+
   build:
     needs: pre-build
     uses: ./.github/workflows/build.yml
+    secrets: inherit
 
   publish:
     needs: build
     uses: ./.github/workflows/publish.yml
+    secrets: inherit
