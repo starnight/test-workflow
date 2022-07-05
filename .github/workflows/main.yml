@@ -7,7 +7,7 @@ on:
 
 jobs:
   pre-build:
-    runs-on: windows-latest
+    runs-on: windows-2019
 
     steps:
       - name: Echo test token
@@ -15,6 +15,24 @@ jobs:
 
       - name: Echo test token again
         run: echo ${{ secrets.TEST_TOKEN }}
+
+      - name: Create dummy files
+        run: |
+          rm *.appx
+
+          echo "" > endlesskey_x64.appx
+          echo "" > endlesskey_x86.appx
+          echo "" > endlesskey_x64.selfsigned.appx
+          echo "" > endlesskey_x86.selfsigned.appx
+
+          ls
+
+          echo "------------"
+          Get-Childitem -Path .\ -Include *.appx -File -Recurse
+          echo "------------"
+          Get-Childitem *.appx -Exclude *selfsigned* -File -Recurse
+          echo "------------"
+          (Get-Childitem *.appx -Exclude *selfsigned* -File -Recurse) -join ", "
 
   build:
     needs: pre-build
