@@ -21,4 +21,4 @@ jobs:
 
   build:
     needs: weekly_tag
-    uses: ./.github/workflows/build.yml
+    uses: ./.github/workflows/addcommit.yml

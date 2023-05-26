@@ -1,0 +1,33 @@
+name: Add a commit to branch
+
+on:
+  workflow_dispatch:
+  workflow_call:
+    
+jobs:
+  bump_version:
+    runs-on: ubuntu-latest
+    env:
+      GIT_USERNAME: ${{ github.actor }}
+      GIT_USEREMAIL: "${{ github.actor }}@test.ci"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set Git environment
+        run: |
+          git config user.name $GIT_USERNAME
+          git config user.email $GIT_USEREMAIL
+          cat .git/config
+
+      - name: Add a new commit
+        run: |
+          date > updatedate.txt
+          git add updatedate.txt
+          git commit -m "Update date"
+          git show
+
+      - name: Push the commit
+        run: |
+          git push
